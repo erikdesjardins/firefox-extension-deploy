@@ -48,16 +48,16 @@ module.exports = function deploy(options) {
 				if (err) {
 					var msg;
 					switch (response.status) {
-						case '400':
+						case 400:
 							msg = '400 Bad Request: ' + response.body.error;
 							break;
-						case '401':
+						case 401:
 							msg = '401 Unauthorized: authentication failed';
 							break;
-						case '403':
+						case 403:
 							msg = '403 Forbidden: you do not have permission to modify this addon';
 							break;
-						case '409':
+						case 409:
 							msg = '409 Conflict: version ' + extensionVersion + ' already exists';
 							break;
 						default:

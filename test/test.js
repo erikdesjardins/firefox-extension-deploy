@@ -12,7 +12,7 @@ test.beforeEach(t => {
 		fixtures(match, params, headers) {
 			t.context.requests.push({ match, params, headers });
 			if (t.context.publishFail) {
-				throw new Error(t.context.publishFail);
+				throw { message: t.context.publishFail };
 			}
 			return t.context.publishResponse;
 		},
