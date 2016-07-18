@@ -14,12 +14,12 @@ module.exports = function deploy(options) {
 	var fieldError = REQUIRED_FIELDS.reduce(function(err, field) {
 		if (err) return err;
 		if (!options[field]) {
-			return new Error('Missing required field: ' + field);
+			return 'Missing required field: ' + field;
 		}
 	}, null);
 
 	if (fieldError) {
-		return Promise.reject(fieldError);
+		return Promise.reject(new Error(fieldError));
 	}
 
 	var jwtIssuer = options.issuer;
