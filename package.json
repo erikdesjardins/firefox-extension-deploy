@@ -1,0 +1,28 @@
+{
+  "name": "firefox-extension-deploy",
+  "version": "0.0.0",
+  "description": "Deploy Firefox extensions to AMO.",
+  "main": "index.js",
+  "scripts": {
+    "test": "ava test/test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/erikdesjardins/firefox-extension-deploy.git"
+  },
+  "author": "Erik Desjardins",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/erikdesjardins/firefox-extension-deploy/issues"
+  },
+  "homepage": "https://github.com/erikdesjardins/firefox-extension-deploy#readme",
+  "devDependencies": {
+    "ava": "^0.13.0",
+    "coveralls": "^2.11.8",
+    "nyc": "^6.0.0",
+    "superagent-mock": "^1.10.0"
+  },
+  "dependencies": {
+    "superagent": "^1.8.0"
+  }
+}
