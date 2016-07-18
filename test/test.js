@@ -1,4 +1,5 @@
 import test from 'ava';
+import jwt from 'jsonwebtoken';
 import superagent from 'superagent';
 import superagentMock from 'superagent-mock';
 
@@ -101,7 +102,7 @@ test.serial('failing upload, 409', async t => {
 test.serial('full deploy', async t => {
 	t.context.publishResponse = {};
 
-	await deploy({ issuer: 'q', secret: 'q', id: 'someId', version: 'someVersion', src: 'someSrc' })
+	await deploy({ issuer: 'someIssuer', secret: 'someSecret', id: 'someId', version: 'someVersion', src: 'someSrc' })
 
 	const { requests: [publishReq] } = t.context;
 
@@ -110,4 +111,10 @@ test.serial('full deploy', async t => {
 	t.regex(publishReq.headers['Authorization'], /^JWT /);
 	t.is(publishReq.headers['Content-Type'], 'multipart/form-data');
 	t.is(publishReq.params, 'someSrc');
+
+	// throws if invalid
+	jwt.verify(publishReq.headers['Authorization'].slice(4), 'someSecret', {
+		algorithms: ['HS256'],
+		issuer: 'someIssuer'
+	})
 });
