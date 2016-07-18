@@ -20,8 +20,8 @@ deploy({
   // https://olympia.readthedocs.io/en/latest/topics/api/auth.html
   // or from this page:
   // https://addons.mozilla.org/en-US/developers/addon/api/key/
-  jwtIssuer: 'myIssuer',
-  jwtSecret: 'mySecret',
+  issuer: 'myIssuer',
+  secret: 'mySecret',
 
   // the ID of your extension
   id: 'exampleId@jetpack',
