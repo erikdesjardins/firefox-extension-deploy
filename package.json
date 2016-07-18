@@ -1,6 +1,6 @@
 {
   "name": "firefox-extension-deploy",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Deploy Firefox extensions to AMO.",
   "main": "index.js",
   "scripts": {
