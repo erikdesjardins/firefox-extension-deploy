@@ -34,6 +34,5 @@ deploy({
   // success!
 }, function(err) {
   // failure :(
-  // errors are sanitized, so your tokens will not be leaked
 });
 ```
