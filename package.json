@@ -23,6 +23,7 @@
     "superagent-mock": "^1.10.0"
   },
   "dependencies": {
+    "jsonwebtoken": "^7.1.6",
     "superagent": "^1.8.0"
   }
 }
