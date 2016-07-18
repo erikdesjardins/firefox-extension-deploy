@@ -28,12 +28,11 @@ deploy({
   // the version to publish
   version: '1.0.0',
 
-  // a Buffer or string containing a .zip (WebExtensions) or .xpi (Add-on SDK)
-  src: fs.readFileSync('path/to/zipped/extension.zip'),
+  // a ReadStream containing a .zip (WebExtensions) or .xpi (Add-on SDK)
+  src: fs.createReadStream('path/to/zipped/extension.zip'),
 }).then(function() {
   // success!
 }, function(err) {
   // failure :(
-  // errors are sanitized, so your tokens will not be leaked
 });
 ```

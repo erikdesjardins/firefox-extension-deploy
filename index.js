@@ -14,12 +14,12 @@ module.exports = function deploy(options) {
 	var fieldError = REQUIRED_FIELDS.reduce(function(err, field) {
 		if (err) return err;
 		if (!options[field]) {
-			return new Error('Missing required field: ' + field);
+			return 'Missing required field: ' + field;
 		}
 	}, null);
 
 	if (fieldError) {
-		return Promise.reject(fieldError);
+		return Promise.reject(new Error(fieldError));
 	}
 
 	var jwtIssuer = options.issuer;
@@ -40,28 +40,18 @@ module.exports = function deploy(options) {
 	// SuperAgent's "promise" support doesn't provide a way to get the status of a failed request
 	return new Promise(function(resolve, reject) {
 		request
-			.put('https://addons.mozilla.org/api/v3/addons/' + extensionId + '/versions/' + extensionVersion)
+			.put('https://addons.mozilla.org/api/v3/addons/' + extensionId + '/versions/' + extensionVersion + '/')
 			.set('Authorization', 'JWT ' + token)
-			.type('multipart/form-data')
-			.send(srcFile)
+			.field('upload', srcFile)
 			.end(function(err, response) {
 				if (err) {
 					var msg;
 					switch (response.status) {
-						case '400':
-							msg = '400 Bad Request: ' + response.body.error;
-							break;
-						case '401':
-							msg = '401 Unauthorized: authentication failed';
-							break;
-						case '403':
-							msg = '403 Forbidden: you do not have permission to modify this addon';
-							break;
-						case '409':
-							msg = '409 Conflict: version ' + extensionVersion + ' already exists';
+						case 401:
+							msg = '401 Unauthorized: ' + response.body.detail;
 							break;
 						default:
-							msg = 'Deployment failed, status: ' + response.status;
+							msg = 'Status ' + response.status + ': ' + response.body.error;
 							break;
 					}
 					reject(new Error(msg));
