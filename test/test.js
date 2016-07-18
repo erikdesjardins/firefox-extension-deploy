@@ -8,7 +8,7 @@ import deploy from '../index.js';
 test.beforeEach(t => {
 	t.context.requests = [];
 	t.context.mock = superagentMock(superagent, [{
-		pattern: '^https://addons.mozilla.org/api/v3/addons/(.+)/versions/(.+)$',
+		pattern: '^https://addons.mozilla.org/api/v3/addons/(.+)/versions/(.+)/$',
 		fixtures(match, params, headers) {
 			t.context.requests.push({ match, params, headers });
 			if (t.context.publishFail) {

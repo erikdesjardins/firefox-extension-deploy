@@ -40,7 +40,7 @@ module.exports = function deploy(options) {
 	// SuperAgent's "promise" support doesn't provide a way to get the status of a failed request
 	return new Promise(function(resolve, reject) {
 		request
-			.put('https://addons.mozilla.org/api/v3/addons/' + extensionId + '/versions/' + extensionVersion)
+			.put('https://addons.mozilla.org/api/v3/addons/' + extensionId + '/versions/' + extensionVersion + '/')
 			.set('Authorization', 'JWT ' + token)
 			.type('multipart/form-data')
 			.send(srcFile)
