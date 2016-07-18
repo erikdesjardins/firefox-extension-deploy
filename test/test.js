@@ -109,8 +109,6 @@ test.serial('full deploy', async t => {
 	t.is(publishReq.match[1], 'someId');
 	t.is(publishReq.match[2], 'someVersion');
 	t.regex(publishReq.headers['Authorization'], /^JWT /);
-	t.is(publishReq.headers['Content-Type'], 'multipart/form-data');
-	t.is(publishReq.params, 'someSrc');
 
 	// throws if invalid
 	jwt.verify(publishReq.headers['Authorization'].slice(4), 'someSecret', {

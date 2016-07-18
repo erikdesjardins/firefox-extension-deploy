@@ -42,8 +42,7 @@ module.exports = function deploy(options) {
 		request
 			.put('https://addons.mozilla.org/api/v3/addons/' + extensionId + '/versions/' + extensionVersion + '/')
 			.set('Authorization', 'JWT ' + token)
-			.type('multipart/form-data')
-			.send(srcFile)
+			.field('upload', srcFile)
 			.end(function(err, response) {
 				if (err) {
 					var msg;
