@@ -2,6 +2,8 @@
 
 Deploy Firefox extensions to AMO.
 
+You should probably use [jpm sign](https://developer.mozilla.org/en-US/Add-ons/SDK/Tools/jpm#jpm_sign) or [web-ext sign](https://developer.mozilla.org/en-US/Add-ons/WebExtensions/web-ext_command_reference#web-ext_sign) instead.
+
 ## Installation
 
 `npm install --save-dev firefox-extension-deploy`
