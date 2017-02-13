@@ -59,7 +59,7 @@ test.serial('failing upload, unknown status', async t => {
 
 	await t.throws(
 		deploy({ issuer: 'q', secret: 'q', id: 'q', version: 'q', src: 'q' }),
-		'Status fail_message: undefined'
+		'Submission failed: Status fail_message: undefined'
 	);
 });
 
@@ -68,7 +68,7 @@ test.serial('failing upload, 400', async t => {
 
 	await t.throws(
 		deploy({ issuer: 'q', secret: 'q', id: 'q', version: 'q', src: 'q' }),
-		'Status 400: undefined'
+		'Submission failed: Status 400: undefined'
 	);
 });
 
@@ -77,7 +77,7 @@ test.serial('failing upload, 401', async t => {
 
 	await t.throws(
 		deploy({ issuer: 'q', secret: 'q', id: 'q', version: 'q', src: 'q' }),
-		'401 Unauthorized: undefined'
+		'Submission failed: 401 Unauthorized: undefined'
 	);
 });
 
@@ -86,7 +86,7 @@ test.serial('failing upload, 403', async t => {
 
 	await t.throws(
 		deploy({ issuer: 'q', secret: 'q', id: 'q', version: 'q', src: 'q' }),
-		'Status 403: undefined'
+		'Submission failed: Status 403: undefined'
 	);
 });
 
@@ -95,7 +95,7 @@ test.serial('failing upload, 409', async t => {
 
 	await t.throws(
 		deploy({ issuer: 'q', secret: 'q', id: 'q', version: 'myVersion', src: 'q' }),
-		'Status 409: undefined'
+		'Submission failed: Status 409: undefined'
 	);
 });
 
