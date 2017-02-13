@@ -17,7 +17,7 @@ var deploy = require('firefox-extension-deploy');
 
 deploy({
   // obtained by following the instructions here:
-  // https://olympia.readthedocs.io/en/latest/topics/api/auth.html
+  // https://addons-server.readthedocs.io/en/latest/topics/api/auth.html
   // or from this page:
   // https://addons.mozilla.org/en-US/developers/addon/api/key/
   issuer: 'myIssuer',
