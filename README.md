@@ -8,9 +8,6 @@ Deploy Firefox extensions to AMO.
 
 ## Usage
 
-Note: `firefox-extension-deploy` requires `Promise` support.
-If your environment does not natively support promises, you'll need to provide [your own polyfill](https://github.com/floatdrop/pinkie).
-
 ```js
 var fs = require('fs');
 var deploy = require('firefox-extension-deploy');
