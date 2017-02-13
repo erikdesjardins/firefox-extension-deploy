@@ -8,7 +8,7 @@ import deploy from '../index.js';
 test.beforeEach(t => {
 	t.context.requests = [];
 	t.context.mock = superagentMock(superagent, [{
-		pattern: '^https://addons.mozilla.org/api/v3/addons/(.+)/versions/(.+)/$',
+		pattern: '^https://addons.mozilla.org/api/v3/addons/([^/]+)/versions/([^/]+)/$',
 		fixtures(match, params, headers) {
 			t.context.requests.push({ match, params, headers });
 			if (t.context.publishFail) {
@@ -17,6 +17,18 @@ test.beforeEach(t => {
 			return t.context.publishResponse;
 		},
 		put(match, data) {
+			return { body: data };
+		}
+	}, {
+		pattern: '^https://addons.mozilla.org/api/v3/addons/([^/]+)/versions/([^/]+)/uploads/([^/]+)/$',
+		fixtures(match, params, headers) {
+			t.context.requests.push({ match, params, headers });
+			if (t.context.validationFail) {
+				throw { response: { status: t.context.validationFail, body: {} } };
+			}
+			return t.context.validationResponse || t.context.validationResponses.shift();
+		},
+		get(match, data) {
 			return { body: data };
 		}
 	}, {
@@ -99,20 +111,79 @@ test.serial('failing upload, 409', async t => {
 	);
 });
 
-test.serial('full deploy', async t => {
+test.serial('failing polling, 409', async t => {
 	t.context.publishResponse = {};
+	t.context.validationFail = 409;
+
+	await t.throws(
+		deploy({ issuer: 'q', secret: 'q', id: 'q', version: 'myVersion', src: 'q' }),
+		'Polling failed: Status 409: undefined'
+	);
+});
+
+test.serial('failing validation', async t => {
+	t.context.publishResponse = { pk: 'somePk' };
+	t.context.validationResponse = { processed: true, valid: false, validation_url: 'myUrl', validation_results: 'myResults' };
+
+	await t.throws(
+		deploy({ issuer: 'q', secret: 'q', id: 'q', version: 'myVersion', src: 'q' }),
+		'Validation failed: myUrl "myResults"'
+	);
+
+	t.is(t.context.requests.length, 2);
+});
+
+test.serial('full deploy', async t => {
+	t.context.publishResponse = { pk: 'somePk' };
+	t.context.validationResponse = { processed: true, valid: true };
 
 	await deploy({ issuer: 'someIssuer', secret: 'someSecret', id: 'someId', version: 'someVersion', src: 'someSrc' })
 
-	const { requests: [publishReq] } = t.context;
+	t.is(t.context.requests.length, 2, 'only two requests made');
+
+	const { requests: [publishReq, validationReq] } = t.context;
 
 	t.is(publishReq.match[1], 'someId');
 	t.is(publishReq.match[2], 'someVersion');
 	t.regex(publishReq.headers['Authorization'], /^JWT /);
-
-	// throws if invalid
 	jwt.verify(publishReq.headers['Authorization'].slice(4), 'someSecret', {
 		algorithms: ['HS256'],
 		issuer: 'someIssuer'
-	})
+	});
+
+	t.is(validationReq.match[1], 'someId');
+	t.is(validationReq.match[2], 'someVersion');
+	t.is(validationReq.match[3], 'somePk');
+	t.regex(validationReq.headers['Authorization'], /^JWT /);
+	jwt.verify(validationReq.headers['Authorization'].slice(4), 'someSecret', {
+		algorithms: ['HS256'],
+		issuer: 'someIssuer'
+	});
+});
+
+test.serial('failing validation after polling', async t => {
+	t.context.publishResponse = { pk: 'somePk' };
+	t.context.validationResponses = [
+		{ processed: false },
+		{ processed: true, valid: false, validation_url: 'myUrl', validation_results: 'myResults' },
+	];
+
+	await t.throws(
+		deploy({ issuer: 'q', secret: 'q', id: 'q', version: 'myVersion', src: 'q' }),
+		'Validation failed: myUrl "myResults"'
+	);
+
+	t.is(t.context.requests.length, 3);
+});
+
+test.serial('passing validation after polling', async t => {
+	t.context.publishResponse = { pk: 'somePk' };
+	t.context.validationResponses = [
+		{ processed: false },
+		{ processed: true, valid: true },
+	];
+
+	await deploy({ issuer: 'q', secret: 'q', id: 'q', version: 'myVersion', src: 'q' });
+
+	t.is(t.context.requests.length, 3);
 });
