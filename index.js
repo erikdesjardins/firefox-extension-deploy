@@ -41,6 +41,7 @@ module.exports = function deploy(options) {
 				iss: jwtIssuer,
 				jti: Math.random().toString(),
 				iat: issuedAt,
+				// 5 minute max http://addons-server.readthedocs.io/en/latest/topics/api/auth.html
 				exp: issuedAt + 300
 			};
 			token = jwt.sign(payload, jwtSecret, { algorithm: 'HS256' });
