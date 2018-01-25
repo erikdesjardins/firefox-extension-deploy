@@ -25,6 +25,7 @@ module.exports = function deploy(options) {
 
 	var token, uploadId;
 
+	// http://addons-server.readthedocs.io/en/latest/topics/api/signing.html
 	return Promise.resolve()
 		// options validation
 		.then(function() {
