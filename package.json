@@ -17,13 +17,13 @@
   },
   "homepage": "https://github.com/erikdesjardins/firefox-extension-deploy#readme",
   "devDependencies": {
-    "ava": "^0.18.1",
-    "coveralls": "^2.11.16",
-    "nyc": "^10.1.2",
+    "ava": "^0.25.0",
+    "coveralls": "^3.0.2",
+    "nyc": "^13.0.1",
     "superagent-mock": "^3.2.0"
   },
   "dependencies": {
-    "jsonwebtoken": "^7.1.6",
+    "jsonwebtoken": "^8.3.0",
     "superagent": "^3.4.2"
   }
 }
