@@ -51,24 +51,24 @@ test.afterEach(t => {
 	global.setTimeout = t.context.oldSetTimeout;
 });
 
-test.serial('missing fields', t => {
-	t.throws(
+test.serial('missing fields', async t => {
+	await t.throws(
 		deploy({ secret: 'q', id: 'q', version: 'q', src: 'q' }),
 		'Missing required field: issuer'
 	);
-	t.throws(
+	await t.throws(
 		deploy({ issuer: 'q', id: 'q', version: 'q', src: 'q' }),
 		'Missing required field: secret'
 	);
-	t.throws(
+	await t.throws(
 		deploy({ issuer: 'q', secret: 'q', version: 'q', src: 'q' }),
 		'Missing required field: id'
 	);
-	t.throws(
+	await t.throws(
 		deploy({ issuer: 'q', secret: 'q', id: 'q', src: 'q' }),
 		'Missing required field: version'
 	);
-	t.throws(
+	await t.throws(
 		deploy({ issuer: 'q', secret: 'q', id: 'q', version: 'q' }),
 		'Missing required field: src'
 	);
