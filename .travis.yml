@@ -1,8 +1,8 @@
 language: node_js
 node_js:
-  - 7
+  - 10
+  - 8
   - 6
-  - 4
 branches:
   only:
     - master
@@ -15,7 +15,7 @@ deploy:
   provider: npm
   email: 'public@erikdesjardins.io'
   api_key:
-    secure: gtuRmfAX4KGvusBEG/M+UiwBnuAYENPuxobPUEYVCWIYur3Qmn4mKMJSqSdJlrOZ+C55bv3ijTi5ATlxXypuuXSyckhLWs3HGvTe+meml7GfWhOdFxSUo/y8ZdSYt7oKDh0Bys/7o90VPN0ZBkFCqhJlr8MfB8KUmGyXf4E8Y8x8cEIrOH83rzQx6T+132XLlJT75I8LLjLeufEuNQ2dMh5L2Mw1jUqlGsV7bodwE+LVJ0gXAn8gJb7T9XH3a70svdwadgX2Ov9c0+GMvnEAnOB1UU8RSO2xTQjoxXTG3G+t2wMHGGXZvy5WpPhTNo19lB5QY2ZjZVSPA5gsBIZiknnXnuZiP9tBx3P5A0IjXi2RdbflT9l6RzN5t//szAwXkCYqscAbd3SgWQGV9yKHbCM+WIUKYf548qaY70HS0fE2FpkSphKgXqnmEgCpPVwUf8yS0qc9qRtPFpFQoffhbaLtqvNaTWX85GCiVcDNTi0k5d+ADzrXkCZC8t++EPXCSHyHNmE+RbTRu2oybpU4P+Wk7SakB0fz2130B91jsjr7DXu5EFcgQTCJy2dxLLPTlg4crMzFHw+k3p57rO2yRPaFGqBALGzkViL8bi85Zr+x2HpxrDgRoU3WPRiwoMzwYrtC/f0efe07Dq9ePWzi+weYeOLUogzzQbpI8x9y90g=
+    secure: XExIdlOQVyEwN5J4j5DiC3ftDMthFwJr9PGi4Ko5QFLSG6tVzMbxe1OLnAVS7Oxx8hv7urqZPS7Ld2UgCQ3IDp1uqAjegqqOkEZ1ILD24jZ8ZbUtvqIsqeSu3sl2pr5iL8pxVyUUrIClBrInKZhWsDxUv6VeUBQ+lyqXSiPu3W429IPLS6KZuYQI1vdxn1hDc+3kn6vhRf+Oga902zVNXfcSGkB9Y27xknSFbj7ybh5+NFaDXuvn17X56BJl8zPNplxSL5G2qVCmpv3Q/+HNTU5sygV9/7eVYywQjgwyNWzx0k4TIGNw3oitnjiuN+G+0kB/b1HesITMrpZDAg8A+G6rTHLYGMyfVA2640qoomr05nyaDF3kaZ2k/qnyhTcD7Gxw+VEMbwBbLXoGx8JCPh+ojz14eN8s3wkstnaLq8SkSnb8xF8aykdc/jiPxlN3eI2aTiQd3XDbdKW1UtYTHv5LZ757OpnMO0JtWQuWL6DPH8dosm84DnjT+bjaQqIalQ5YRMc2+ZEQPQ7m5G6TUUjvWaG8XczPQ6u3mwlb6oCWSmg8SgJXddEieT+zddphyQbLoP93Ah187B8z8gwsp78c6/E8bNF15fjXX/nW7IW3X32sYZNZ2gUI28nSwKKL/QNCdhahH7ALyfyH8VTzdpccpm2mRl9CjXThW7fHsCE=
   on:
     tags: true
-    node: 7
+    node: 10
