@@ -37,10 +37,18 @@ test.beforeEach(t => {
 			throw new Error('No mocked endpoint for: ' + match);
 		}
 	}]);
+
+	const oldSetTimeout = global.setTimeout;
+	t.context.oldSetTimeout = oldSetTimeout;
+	global.setTimeout = function shortSetTimeout(fn, delay, ...args) {
+		return oldSetTimeout(fn, delay / 1000, ...args);
+	};
 });
 
 test.afterEach(t => {
 	t.context.mock.unset();
+
+	global.setTimeout = t.context.oldSetTimeout;
 });
 
 test.serial('missing fields', t => {
