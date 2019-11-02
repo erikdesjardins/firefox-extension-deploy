@@ -1,4 +1,4 @@
-# firefox-extension-deploy [![Build Status](https://travis-ci.org/erikdesjardins/firefox-extension-deploy.svg?branch=master)](https://travis-ci.org/erikdesjardins/firefox-extension-deploy) [![Coverage Status](https://coveralls.io/repos/github/erikdesjardins/firefox-extension-deploy/badge.svg?branch=master)](https://coveralls.io/github/erikdesjardins/firefox-extension-deploy?branch=master)
+# firefox-extension-deploy
 
 Deploy Firefox extensions to AMO.
 
