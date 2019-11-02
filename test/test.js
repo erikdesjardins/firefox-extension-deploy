@@ -52,23 +52,23 @@ test.afterEach(t => {
 });
 
 test.serial('missing fields', async t => {
-	await t.throws(
+	await t.throwsAsync(
 		deploy({ secret: 'q', id: 'q', version: 'q', src: 'q' }),
 		'Missing required field: issuer'
 	);
-	await t.throws(
+	await t.throwsAsync(
 		deploy({ issuer: 'q', id: 'q', version: 'q', src: 'q' }),
 		'Missing required field: secret'
 	);
-	await t.throws(
+	await t.throwsAsync(
 		deploy({ issuer: 'q', secret: 'q', version: 'q', src: 'q' }),
 		'Missing required field: id'
 	);
-	await t.throws(
+	await t.throwsAsync(
 		deploy({ issuer: 'q', secret: 'q', id: 'q', src: 'q' }),
 		'Missing required field: version'
 	);
-	await t.throws(
+	await t.throwsAsync(
 		deploy({ issuer: 'q', secret: 'q', id: 'q', version: 'q' }),
 		'Missing required field: src'
 	);
@@ -77,7 +77,7 @@ test.serial('missing fields', async t => {
 test.serial('failing upload, unknown status', async t => {
 	t.context.publishFail = 'fail_message';
 
-	await t.throws(
+	await t.throwsAsync(
 		deploy({ issuer: 'q', secret: 'q', id: 'q', version: 'q', src: 'q' }),
 		'Submission failed: Status fail_message: undefined'
 	);
@@ -86,7 +86,7 @@ test.serial('failing upload, unknown status', async t => {
 test.serial('failing upload, 400', async t => {
 	t.context.publishFail = 400;
 
-	await t.throws(
+	await t.throwsAsync(
 		deploy({ issuer: 'q', secret: 'q', id: 'q', version: 'q', src: 'q' }),
 		'Submission failed: Status 400: undefined'
 	);
@@ -95,7 +95,7 @@ test.serial('failing upload, 400', async t => {
 test.serial('failing upload, 401', async t => {
 	t.context.publishFail = 401;
 
-	await t.throws(
+	await t.throwsAsync(
 		deploy({ issuer: 'q', secret: 'q', id: 'q', version: 'q', src: 'q' }),
 		'Submission failed: 401 Unauthorized: undefined'
 	);
@@ -104,7 +104,7 @@ test.serial('failing upload, 401', async t => {
 test.serial('failing upload, 403', async t => {
 	t.context.publishFail = 403;
 
-	await t.throws(
+	await t.throwsAsync(
 		deploy({ issuer: 'q', secret: 'q', id: 'q', version: 'q', src: 'q' }),
 		'Submission failed: Status 403: undefined'
 	);
@@ -113,7 +113,7 @@ test.serial('failing upload, 403', async t => {
 test.serial('failing upload, 409', async t => {
 	t.context.publishFail = 409;
 
-	await t.throws(
+	await t.throwsAsync(
 		deploy({ issuer: 'q', secret: 'q', id: 'q', version: 'myVersion', src: 'q' }),
 		'Submission failed: Status 409: undefined'
 	);
@@ -123,7 +123,7 @@ test.serial('failing polling, 409', async t => {
 	t.context.publishResponse = {};
 	t.context.validationFail = 409;
 
-	await t.throws(
+	await t.throwsAsync(
 		deploy({ issuer: 'q', secret: 'q', id: 'q', version: 'myVersion', src: 'q' }),
 		'Polling failed: Status 409: undefined'
 	);
@@ -133,7 +133,7 @@ test.serial('failing validation', async t => {
 	t.context.publishResponse = { pk: 'somePk' };
 	t.context.validationResponse = { processed: true, valid: false, validation_url: 'myUrl', validation_results: 'myResults' };
 
-	await t.throws(
+	await t.throwsAsync(
 		deploy({ issuer: 'q', secret: 'q', id: 'q', version: 'myVersion', src: 'q' }),
 		'Validation failed: myUrl "myResults"'
 	);
@@ -176,7 +176,7 @@ test.serial('failing validation after polling', async t => {
 		{ processed: true, valid: false, validation_url: 'myUrl', validation_results: 'myResults' },
 	];
 
-	await t.throws(
+	await t.throwsAsync(
 		deploy({ issuer: 'q', secret: 'q', id: 'q', version: 'myVersion', src: 'q' }),
 		'Validation failed: myUrl "myResults"'
 	);
